@@ -4,7 +4,7 @@
   "description": "Local login routes and strategies for express-login.",
   "main": "src",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha src/**/**.spec.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,16 @@
   "bugs": {
     "url": "https://github.com/airjp73/express-login-local/issues"
   },
-  "homepage": "https://github.com/airjp73/express-login-local#readme"
+  "homepage": "https://github.com/airjp73/express-login-local#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "passport-local": "^1.0.0",
+    "require-fields": "^1.0.1"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-passport-strategy": "^1.0.1",
+    "mocha": "^4.0.1",
+    "sinon": "^4.1.3"
+  }
 }
