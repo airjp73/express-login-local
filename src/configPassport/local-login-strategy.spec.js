@@ -12,7 +12,6 @@ var mockUser = {
 }
 var mockConfig = {
   database: {
-    newUser: sandbox.stub(),
     saveUser: sandbox.stub(),
     getUser: sandbox.stub().callsFake((selection, projection = []) => {
       if (selection.email != mockUser.email)
