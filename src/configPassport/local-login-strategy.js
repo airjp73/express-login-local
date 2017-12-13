@@ -11,7 +11,8 @@ module.exports = (config) => {
   },
   async (req, email, password, done) => {
     try {
-
+      console.log(email)
+      console.log(password)
       var user = await config.database.getUser({[con.fields.EMAIL]: email}, [con.fields.PASSWORD])
 
       if (!user)
