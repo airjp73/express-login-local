@@ -1,5 +1,5 @@
 module.exports = {
-  emailTemplates: require('./emailTemplates')
+  emails: require('./emailTemplates'),
   fields: require('./fields'),
   routes: require('./routes'),
   passport: require('./passportStrings')
