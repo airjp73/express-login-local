@@ -12,7 +12,8 @@ var user = {
   id: 1234,
   email: "test@user.com",
   password: "password" + vals.hashSuffix,
-  confirmEmailToken: vals.token
+  confirmEmailToken: vals.token,
+  emailConfirmed: false
 }
 
 var config = {
@@ -46,6 +47,7 @@ function reset() {
   user.email = "test@user.com"
   user.password = "password" + vals.hashSuffix
   user.confirmEmailToken = vals.token
+  user.emailConfirmed = false
 
   config.database.newUser.returnsArg(0)
   config.database.getUser.callsFake((select) => {
