@@ -30,14 +30,17 @@ var config = {
   }
 }
 
+var status = sandbox.stub()
 var res = {
-  sendStatus: sandbox.stub(),
-  status: sandbox.stub(),
+  sendStatus: status,
+  status: status,
   json: sandbox.stub()
 }
 var next = sandbox.spy()
 
-function setDefaults() {
+function reset() {
+  sandbox.reset()
+
   config.database.newUser.returnsArg(0)
   config.database.getUser.callsFake((select) => {
     if (select._id == user.id)
@@ -54,10 +57,10 @@ function setDefaults() {
   })
   config.encrypt.genToken.returns(vals.token)
 
-  res.status.returns(res)
+  status.returns(res)
 }
 
-setDefaults()
+reset()
 
 module.exports = {
   sandbox,
@@ -65,6 +68,7 @@ module.exports = {
   config,
   vals,
   res,
+  status,
   next,
-  setDefaults
+  reset
 }
