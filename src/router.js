@@ -41,7 +41,7 @@ module.exports = (config, passport) => {
 
   auth.route( con.routes.RESEND_CONFIRMATION ).post(
     requireLoggedIn,
-    controllers.resendConfirmation
+    controllers.resendConfirmation(config)
   )
 
   auth.route( con.routes.CONFIRM_EMAIL ).post(
