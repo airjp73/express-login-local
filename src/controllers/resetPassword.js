@@ -19,7 +19,7 @@ module.exports = (config) => {
         return
       }
 
-      user.password = encrypt.hashPassword(req.body.newPassword)
+      user.password = config.encrypt.hashPassword(req.body.newPassword)
       user.resetPasswordToken = undefined
       user.resetPasswordExpires = undefined
       user = await config.database.updateUser(user)
@@ -32,5 +32,4 @@ module.exports = (config) => {
       next(err)
     }
   }
-}
 }
