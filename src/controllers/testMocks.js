@@ -42,11 +42,18 @@ var next = sandbox.spy()
 function reset() {
   sandbox.reset()
 
+  user.id = 1234,
+  user.email = "test@user.com"
+  user.password = "password" + vals.hashSuffix
+  user.confirmEmailToken = vals.token
+
   config.database.newUser.returnsArg(0)
   config.database.getUser.callsFake((select) => {
     if (select._id == user.id ||
-        select.confirmEmailToken == user.confirmEmailToken)
+        select.confirmEmailToken == user.confirmEmailToken ||
+        select.email == user.email)
       return user
+    console.log("hi")
     return null
   })
   config.database.updateUser.returnsArg(0)

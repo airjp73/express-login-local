@@ -10,10 +10,13 @@ var con = require('../constants')
 
 var middleware = forgotPassword(mocks.config)
 
-describe("confirmEmail", () => {
+describe("forgotPassword", () => {
   describe("success case", () => {
 
     var req = {
+      headers: {
+        host: "localhost"
+      },
       body: {
         email: mocks.user.email
       }
@@ -32,7 +35,7 @@ describe("confirmEmail", () => {
       sinon.assert.called(mocks.config.database.updateUser)
       var user = mocks.config.database.updateUser.getCall(0).args[0]
       expect(user.resetPasswordToken).to.equal(mocks.vals.token)
-      expect(user.resetPasswordExpires).to.be.an.instanceof(Date)
+      expect(user.resetPasswordExpires).to.be.above(Date.now())
     })
 
     it("should sendStatus 200", () => {
@@ -41,15 +44,20 @@ describe("confirmEmail", () => {
       expect(status).to.equal(200)
     })
 
-    it("should send email", () => {
+    it("should send email with link", () => {
       sinon.assert.called(mocks.config.mailer.sendEmail)
       var template = mocks.config.mailer.sendEmail.getCall(0).args[0]
+      var link = mocks.config.mailer.sendEmail.getCall(0).args[2].link
       expect(template).to.equal(con.emails.FORGOT_PASSWORD)
+      expect(link).to.equal("http://localhost" + con.routes.RESET_PASSWORD + "?token=" + mocks.vals.token)
     })
   })
 
-  describe("failure case: no use found", () => {
+  describe("failure case: no user found", () => {
     var req = {
+      headers: {
+        host: "localhost"
+      },
       body: {
         email: "nomatch"
       }
