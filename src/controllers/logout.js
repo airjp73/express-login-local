@@ -1,6 +1,6 @@
 "use strict"
 
-module.export = (config) => {
+module.exports = (config) => {
 
   return (req, res) => {
     req.logout()
