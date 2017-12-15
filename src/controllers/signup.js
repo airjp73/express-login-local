@@ -1,5 +1,7 @@
 "use strict"
 
+var con = require('../constants')
+
 module.exports = (config) => {
 
   return async (req, res, next) => {
