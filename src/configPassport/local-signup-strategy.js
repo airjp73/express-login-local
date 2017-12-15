@@ -1,7 +1,7 @@
 "use strict"
 
 var LocalStrategy = require('passport-local').Strategy
-var con = require('../../constants')
+var con = require('../constants')
 
 module.exports = (config) => {
   return new LocalStrategy({
