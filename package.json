@@ -4,7 +4,7 @@
   "description": "Local login routes and strategies for express-login.",
   "main": "src",
   "scripts": {
-    "test": "mocha src/**/**.spec.js"
+    "test": "mocha 'src/**/*.spec.js'"
   },
   "repository": {
     "type": "git",
