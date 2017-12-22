@@ -9,7 +9,7 @@ var requireFields = require("require-fields")
 
 //modules
 var controllers = require("./controllers")
-var con = require("../constants")
+var con = require("./constants")
 
 
 module.exports = (config, passport) => {
