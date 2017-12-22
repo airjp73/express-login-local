@@ -1,11 +1,14 @@
 "use strict"
 
-module.exports = {
-  configPassport: require('./configPassport'),
-  router: require('./router'),
+var configPassport = require('./configPassport')
+var router = require('./router')
+function init(config, passport) {
+  configPassport(config, passport)
+  return router(config, passport)
+}
 
-  init: (config, passport) => {
-    configPassport(config, passport)
-    return router(config, passport)
-  }
+module.exports = {
+  configPassport,
+  router,
+  init
 }
