@@ -58,7 +58,6 @@ function reset() {
         select.email == user.email ||
         select.resetPasswordToken == user.resetPasswordToken)
       return user
-    console.log("hi")
     return null
   })
   config.database.updateUser.returnsArg(0)
