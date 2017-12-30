@@ -14,9 +14,9 @@ var con = require("./constants")
 
 module.exports = (config, passport) => {
 
-  var auth = express.Router()
+  var router = express.Router()
 
-  auth.route( con.routes.SIGNUP ).post(
+  router.route( con.routes.SIGNUP ).post(
     requireFields([
       con.fields.EMAIL,
       con.fields.PASSWORD
@@ -25,7 +25,7 @@ module.exports = (config, passport) => {
     controllers.signup(config)
   )
 
-  auth.route( con.routes.LOGIN ).post(
+  router.route( con.routes.LOGIN ).post(
     requireFields([
       con.fields.EMAIL,
       con.fields.PASSWORD
@@ -34,24 +34,24 @@ module.exports = (config, passport) => {
     controllers.login(config)
   )
 
-  auth.route( con.routes.LOGOUT ).post(
+  router.route( con.routes.LOGOUT ).post(
     requireLoggedIn,
     controllers.logout(config)
   )
 
-  auth.route( con.routes.RESEND_CONFIRMATION ).post(
+  router.route( con.routes.RESEND_CONFIRMATION ).post(
     requireLoggedIn,
     controllers.resendConfirmation(config)
   )
 
-  auth.route( con.routes.CONFIRM_EMAIL ).post(
+  router.route( con.routes.CONFIRM_EMAIL ).post(
     requireFields([
       con.fields.CONFIRM_EMAIL_TOKEN
     ]),
     controllers.confirmEmail(config)
   )
 
-  auth.route( con.routes.CHANGE_PASSWORD ).post(
+  router.route( con.routes.CHANGE_PASSWORD ).post(
     requireFields([
       con.fields.EMAIL,
       con.fields.PASSWORD,
@@ -61,14 +61,14 @@ module.exports = (config, passport) => {
     controllers.changePassword(config)
   )
 
-  auth.route( con.routes.FORGOT_PASSWORD ).post(
+  router.route( con.routes.FORGOT_PASSWORD ).post(
     requireFields([
       con.fields.EMAIL
     ]),
     controllers.forgotPassword(config)
   )
 
-  auth.route( con.routes.RESET_PASSWORD ).post(
+  router.route( con.routes.RESET_PASSWORD ).post(
     requireFields([
       con.fields.RESET_PASSWORD_TOKEN,
       con.fields.NEW_PASSWORD
@@ -76,5 +76,5 @@ module.exports = (config, passport) => {
     controllers.resetPassword(config)
   )
 
-  return auth
+  return router
 }
