@@ -2,7 +2,9 @@ var chai = require('chai')
 var expect = chai.expect
 var sinon = require('sinon')
 
-var router = sinon.spy()
+var router = sinon.stub()
+router.returns(router)
+
 var configPassport = sinon.spy()
 var proxyquire = require('proxyquire')
 proxyquire('./index.js', {
@@ -10,36 +12,26 @@ proxyquire('./index.js', {
   './configPassport': configPassport
 })
 
-var ex = require('./index.js')
+var localStrategy = require('./index.js')
 
 describe("src", () => {
+  var config = {}
+  var passport = {}
+  var returnVal = {}
 
-
-  it("should export an object", () => {
-    expect(ex).to.be.an('object')
+  before(() => {
+    returnVal = localStrategy(config, passport)
   })
 
-
-
-  describe("init function", () => {
-    var config = {}
-    var passport = {}
-
-    before(() => {
-      ex.init(config, passport)
-    })
-
-    it("should have init function", () => {
-      expect(ex.init).to.exist
-    })
-
-    it("should call configPassport", () => {
-      sinon.assert.calledWith(configPassport, config, passport)
-    })
-
-    it("should call router", () => {
-      sinon.assert.calledWith(router, config, passport)
-    })
+  it("should call configPassport", () => {
+    sinon.assert.calledWith(configPassport, config, passport)
   })
 
+  it("should call router", () => {
+    sinon.assert.calledWith(router, config, passport)
+  })
+
+  it("should return router", () => {
+    expect(returnVal).to.equal(router)
+  })
 })
