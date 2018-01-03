@@ -1,7 +1,7 @@
 var chai = require('chai')
 var expect = chai.expect
 
-var router = require('./router.js')
+var router = require('./index.js')
 
 describe("router", () => {
   it("should export a function", () => {

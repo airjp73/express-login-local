@@ -7,11 +7,21 @@ var express = require("express")
 var requireLoggedIn = require("./middleware/requireLoggedIn")
 var requireFields = require("require-fields")
 
-//modules
-var controllers = require("./controllers")
-var con = require("./constants")
+//constants
+var con = require("../constants")
+
+//controllers
+var changePassword      = require('./changePassword')
+var confirmEmail        = require('./confirmEmail')
+var forgotPassword      = require('./forgotPassword')
+var login               = require('./login')
+var logout              = require('./logout')
+var resendConfirmation  = require('./resendConfirmation')
+var resetPassword       = require('./resetPassword')
+var signup              = require('./signup')
 
 
+/////Router Setup
 module.exports = (config, passport) => {
 
   var router = express.Router()
@@ -22,7 +32,7 @@ module.exports = (config, passport) => {
       con.fields.PASSWORD
     ]),
     passport.authenticate(con.passport.LOCAL_SIGNUP),
-    controllers.signup(config)
+    signup(config)
   )
 
   router.route( con.routes.LOGIN ).post(
@@ -31,24 +41,24 @@ module.exports = (config, passport) => {
       con.fields.PASSWORD
     ]),
     passport.authenticate(con.passport.LOCAL_LOGIN),
-    controllers.login(config)
+    login(config)
   )
 
   router.route( con.routes.LOGOUT ).post(
     requireLoggedIn,
-    controllers.logout(config)
+    logout(config)
   )
 
   router.route( con.routes.RESEND_CONFIRMATION ).post(
     requireLoggedIn,
-    controllers.resendConfirmation(config)
+    resendConfirmation(config)
   )
 
   router.route( con.routes.CONFIRM_EMAIL ).post(
     requireFields([
       con.fields.CONFIRM_EMAIL_TOKEN
     ]),
-    controllers.confirmEmail(config)
+    confirmEmail(config)
   )
 
   router.route( con.routes.CHANGE_PASSWORD ).post(
@@ -58,14 +68,14 @@ module.exports = (config, passport) => {
       con.fields.NEW_PASSWORD
     ]),
     passport.authenticate(con.passport.LOCAL_LOGIN),
-    controllers.changePassword(config)
+    changePassword(config)
   )
 
   router.route( con.routes.FORGOT_PASSWORD ).post(
     requireFields([
       con.fields.EMAIL
     ]),
-    controllers.forgotPassword(config)
+    forgotPassword(config)
   )
 
   router.route( con.routes.RESET_PASSWORD ).post(
@@ -73,7 +83,7 @@ module.exports = (config, passport) => {
       con.fields.RESET_PASSWORD_TOKEN,
       con.fields.NEW_PASSWORD
     ]),
-    controllers.resetPassword(config)
+    resetPassword(config)
   )
 
   return router
