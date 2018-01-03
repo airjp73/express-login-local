@@ -5,7 +5,7 @@ var con = require('../constants')
 module.exports = (config) => {
 
   return async (req, res, next) => {
-    var selection = {_id: req.user._id}
+    var selection = {_id: req.user.id}
     var fields = [
       con.fields.EMAIL,
       con.fields.EMAIL_CONFIRMED,
