@@ -8,11 +8,13 @@ module.exports = (config) => {
     res.sendStatus(200)
 
     try {
+
       if (!config.options.noEmail) {
         config.mailer.sendEmail(con.emails.CONFIRM, req.user.email, {
             link: "http://" + req.headers.host + con.routes.CONFIRM_EMAIL + "?token=" + req.user.confirmEmailToken,
           })
       }
+
     }
     catch(err) {
       next(err)
