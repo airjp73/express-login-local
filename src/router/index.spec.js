@@ -9,7 +9,9 @@ describe("router", () => {
   })
 
   it("should return an express router", () => {
-    var config = {}
+    var config = {
+      options: {}
+    }
     var passport = {
       authenticate: (str) => {
         return (req, res, next) => {}

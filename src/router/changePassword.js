@@ -17,7 +17,9 @@ module.exports = (config) => {
       await config.database.updateUser(user)
 
       res.sendStatus(200)
-      config.mailer.sendEmail(con.emails.PASSWORD_CHANGED, user.email, {})
+
+      if (!config.options.noEmail)
+        config.mailer.sendEmail(con.emails.PASSWORD_CHANGED, user.email, {})
 
     }
     catch(err) {

@@ -30,7 +30,8 @@ var config = {
     matchPassword: sandbox.stub(),
     hashPassword: sandbox.stub(),
     genToken: sandbox.stub()
-  }
+  },
+  options: {}
 }
 
 var status = sandbox.stub()

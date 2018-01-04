@@ -49,18 +49,6 @@ module.exports = (config, passport) => {
     logout(config)
   )
 
-  router.route( con.routes.RESEND_CONFIRMATION ).post(
-    requireLoggedIn,
-    resendConfirmation(config)
-  )
-
-  router.route( con.routes.CONFIRM_EMAIL ).post(
-    requireFields([
-      con.fields.CONFIRM_EMAIL_TOKEN
-    ]),
-    confirmEmail(config)
-  )
-
   router.route( con.routes.CHANGE_PASSWORD ).post(
     requireFields([
       con.fields.EMAIL,
@@ -71,20 +59,36 @@ module.exports = (config, passport) => {
     changePassword(config)
   )
 
-  router.route( con.routes.FORGOT_PASSWORD ).post(
-    requireFields([
-      con.fields.EMAIL
-    ]),
-    forgotPassword(config)
-  )
+  if (!config.options.noEmail) {
 
-  router.route( con.routes.RESET_PASSWORD ).post(
-    requireFields([
-      con.fields.RESET_PASSWORD_TOKEN,
-      con.fields.NEW_PASSWORD
-    ]),
-    resetPassword(config)
-  )
+    router.route( con.routes.RESEND_CONFIRMATION ).post(
+      requireLoggedIn,
+      resendConfirmation(config)
+    )
+
+    router.route( con.routes.CONFIRM_EMAIL ).post(
+      requireFields([
+        con.fields.CONFIRM_EMAIL_TOKEN
+      ]),
+      confirmEmail(config)
+    )
+
+    router.route( con.routes.FORGOT_PASSWORD ).post(
+      requireFields([
+        con.fields.EMAIL
+      ]),
+      forgotPassword(config)
+    )
+
+    router.route( con.routes.RESET_PASSWORD ).post(
+      requireFields([
+        con.fields.RESET_PASSWORD_TOKEN,
+        con.fields.NEW_PASSWORD
+      ]),
+      resetPassword(config)
+    )
+
+  }
 
   return router
 }
