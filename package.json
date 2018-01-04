@@ -1,21 +1,21 @@
 {
-  "name": "express-login-local",
+  "name": "express-reuse-local-login",
   "version": "1.0.0",
-  "description": "Local login routes and strategies for express-login.",
+  "description": "Local login routes and strategies for express-reuse.",
   "main": "src",
   "scripts": {
     "test": "mocha src/**/*.spec.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/airjp73/express-login-local.git"
+    "url": "git+https://github.com/airjp73/express-reuse-local-login.git"
   },
   "author": "Aaron Pettengill",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/airjp73/express-login-local/issues"
+    "url": "https://github.com/airjp73/express-reuse-local-login/issues"
   },
-  "homepage": "https://github.com/airjp73/express-login-local#readme",
+  "homepage": "https://github.com/airjp73/express-reuse-local-login#readme",
   "dependencies": {
     "express": "^4.16.2",
     "passport-local": "^1.0.0",
