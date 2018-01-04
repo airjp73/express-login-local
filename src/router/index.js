@@ -6,6 +6,7 @@ var express = require("express")
 //middleware
 var requireLoggedIn = require("./middleware/requireLoggedIn")
 var requireFields = require("require-fields")
+var checkEmailOptions = require('./middleware/checkEmailOptions')
 
 //constants
 var con = require("../constants")
@@ -59,36 +60,36 @@ module.exports = (config, passport) => {
     changePassword(config)
   )
 
-  if (!config.options.noEmail) {
+  router.route( con.routes.RESEND_CONFIRMATION ).post(
+    checkEmailOptions(config),
+    requireLoggedIn,
+    resendConfirmation(config)
+  )
 
-    router.route( con.routes.RESEND_CONFIRMATION ).post(
-      requireLoggedIn,
-      resendConfirmation(config)
-    )
+  router.route( con.routes.CONFIRM_EMAIL ).post(
+    checkEmailOptions(config),
+    requireFields([
+      con.fields.CONFIRM_EMAIL_TOKEN
+    ]),
+    confirmEmail(config)
+  )
 
-    router.route( con.routes.CONFIRM_EMAIL ).post(
-      requireFields([
-        con.fields.CONFIRM_EMAIL_TOKEN
-      ]),
-      confirmEmail(config)
-    )
+  router.route( con.routes.FORGOT_PASSWORD ).post(
+    checkEmailOptions(config),
+    requireFields([
+      con.fields.EMAIL
+    ]),
+    forgotPassword(config)
+  )
 
-    router.route( con.routes.FORGOT_PASSWORD ).post(
-      requireFields([
-        con.fields.EMAIL
-      ]),
-      forgotPassword(config)
-    )
-
-    router.route( con.routes.RESET_PASSWORD ).post(
-      requireFields([
-        con.fields.RESET_PASSWORD_TOKEN,
-        con.fields.NEW_PASSWORD
-      ]),
-      resetPassword(config)
-    )
-
-  }
+  router.route( con.routes.RESET_PASSWORD ).post(
+    checkEmailOptions(config),
+    requireFields([
+      con.fields.RESET_PASSWORD_TOKEN,
+      con.fields.NEW_PASSWORD
+    ]),
+    resetPassword(config)
+  )
 
   return router
 }
