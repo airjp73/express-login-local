@@ -18,7 +18,7 @@ describe("resendConfirmation", () => {
         host: "localhost"
       },
       user: {
-        _id: mocks.user.id
+        id: mocks.user.id
       }
     }
 
@@ -61,7 +61,7 @@ describe("resendConfirmation", () => {
         host: "localhost"
       },
       user: {
-        _id: mocks.user.id
+        id: mocks.user.id
       }
     }
 
