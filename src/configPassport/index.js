@@ -1,8 +1,9 @@
 "use strict"
 
 var con = require('../constants')
+var passport = require('passport')
 
-module.exports = (config, passport) => {
+module.exports = (config) => {
   var localSignupStrategy = require('./local-signup-strategy')(config)
   var localLoginStrategy  = require('./local-login-strategy')(config)
 

@@ -8,7 +8,11 @@ var con = require('../constants')
 
 var loginMock = {hi: "hi"}
 var signupMock = {bye: "bye"}
+var passport = {
+  use: sinon.spy()
+}
 proxyquire('./index.js', {
+  'passport' : passport,
   './local-login-strategy' : (config) => {
     return loginMock
   },
@@ -16,9 +20,7 @@ proxyquire('./index.js', {
     return signupMock
   }
 })
-var passport = {
-  use: sinon.spy()
-}
+
 
 var ex = require('./index.js')
 

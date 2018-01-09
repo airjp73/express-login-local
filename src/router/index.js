@@ -2,6 +2,7 @@
 
 //3rd party
 var express = require("express")
+var passport = require('passport')
 
 //middleware
 var requireLoggedIn = require("./middleware/requireLoggedIn")
@@ -23,7 +24,7 @@ var signup              = require('./signup')
 
 
 /////Router Setup
-module.exports = (config, passport) => {
+module.exports = (config) => {
 
   var router = express.Router()
 

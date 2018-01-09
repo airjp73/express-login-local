@@ -16,19 +16,18 @@ var localStrategy = require('./index.js')
 
 describe("src", () => {
   var config = {}
-  var passport = {}
   var returnVal = {}
 
   before(() => {
-    returnVal = localStrategy(config, passport)
+    returnVal = localStrategy(config)
   })
 
   it("should call configPassport", () => {
-    sinon.assert.calledWith(configPassport, config, passport)
+    sinon.assert.calledWith(configPassport, config)
   })
 
   it("should call router", () => {
-    sinon.assert.calledWith(router, config, passport)
+    sinon.assert.calledWith(router, config)
   })
 
   it("should return router", () => {
